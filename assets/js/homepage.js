@@ -11,11 +11,12 @@ var formSubmitHandler = function(event){
 
     if (username) {
         getUserRepos(username);
+        
+        // clear old content
+        nameInputEl.value = "";
     } else {
         alert("Please enter a GitHub username.");
     };
-
-    nameInputEl.value = "";
 };
 
 var getUserRepos = function(user) {
@@ -84,6 +85,6 @@ var displayRepos = function(repos, searchTerm){
         // append container to the dom
         repoContainerEl.appendChild(repoEl);
     }
-}
+};
 
 userFormEl.addEventListener("submit", formSubmitHandler);
