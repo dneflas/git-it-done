@@ -4,18 +4,22 @@ var repoNameEl = document.querySelector("#repo-name");
 
 
 var getRepoName = function() {
+    // grab repo name from url query string
     var queryString = document.location.search;
     var repoName = queryString.split("=")[1];
 
     if (repoName) {
+        // get repo issues and display repo nam on the page
         getRepoIssues(repoName);
         repoNameEl.textContent = repoName;
     } else {
+        // if not repo was given, redirect to the homepage
         document.location.replace("./index.html");
     }
 };
 
 var getRepoIssues = function(repo){
+    // format the githun api url
     var apiUrl = "https://api.github.com/repos/" + repo + "/issues?direction=asc";
 
     // make a get request to url
@@ -43,6 +47,7 @@ var displayIssues = function(issues) {
         return;
     };
 
+    // loop over given issues
     for (var i =0; i < issues.length; i++) {
         // create a link element to take users to the issues on GitHub
         var issuesEl = document.createElement("a");
@@ -69,15 +74,17 @@ var displayIssues = function(issues) {
 
         // append to container
         issuesEl.appendChild(typeEl);
-    // append to page
+
+        // append to dom
         issuesContainerEl.appendChild(issuesEl);
-    };
+    }
 };
 
 var displayWarning = function(repo) {
     // add text warning to container
     limitWarningEl.textContent = "To see more than 30 issues, visit ";
 
+    // create link element
     var linkEl = document.createElement("a");
     linkEl.textContent = "GitHub.com"
     linkEl.setAttribute("href", "https://github.com/" + repo +"/issues")
